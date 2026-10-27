@@ -1,18 +1,59 @@
+# ==============================================================================
+# Derma Bliss Clinic — Render Infrastructure Blueprint (render.yaml)
+# One-click deployment for MySQL, Spring Boot 3 Backend, and Admin Website
+# ==============================================================================
+
 services:
   # ----------------------------------------------------------------------------
-  # 1. Spring Boot 3 Backend API (Render Free Web Service)
+  # 1. MySQL 8.0 Database (Private Service with Persistent Disk)
+  # ----------------------------------------------------------------------------
+  - type: pserv
+    name: dermabliss-mysql
+    env: image
+    image:
+      url: mysql:8.0
+    plan: starter
+    disk:
+      name: mysql-data
+      mountPath: /var/lib/mysql
+      sizeGB: 10
+    envVars:
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
+      - key: MYSQL_DATABASE
+        value: dermabliss_db
+      - key: MYSQL_USER
+        value: dermabliss_user
+      - key: MYSQL_PASSWORD
+        generateValue: true
+
+  # ----------------------------------------------------------------------------
+  # 2. Spring Boot 3 Backend API (Auto-scaling Web Service)
   # ----------------------------------------------------------------------------
   - type: web
     name: dermabliss-backend
-    runtime: docker
+    env: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
-    plan: free
+    plan: standard
     healthCheckPath: /actuator/health
     autoDeploy: true
+    scaling:
+      minInstances: 1
+      maxInstances: 5
+      targetCPUPercent: 75
     envVars:
       - key: SPRING_PROFILES_ACTIVE
-        value: free
+        value: prod
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://dermabliss-mysql:3306/dermabliss_db?useSSL=false&serverTimezone=Asia/Kolkata&allowPublicKeyRetrieval=true
+      - key: SPRING_DATASOURCE_USERNAME
+        value: dermabliss_user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromService:
+          name: dermabliss-mysql
+          type: pserv
+          envVarKey: MYSQL_PASSWORD
       - key: DERMABLISS_JWT_SECRET
         generateValue: true
       - key: ADMIN_BOOTSTRAP_PHONE
@@ -23,11 +64,10 @@ services:
         value: "https://dermabliss-admin.onrender.com,http://localhost:3000,http://localhost:8080"
 
   # ----------------------------------------------------------------------------
-  # 2. Admin Website (Render Free Static Site on Global CDN)
+  # 3. Admin Website (Free Global CDN Static Site)
   # ----------------------------------------------------------------------------
-  - type: web
+  - type: static
     name: dermabliss-admin
-    runtime: static
     buildCommand: ""
     staticPublishPath: ./admin-website
     routes:
@@ -37,3 +77,4 @@ services:
       - type: rewrite
         source: /*
         destination: /login.html
+
