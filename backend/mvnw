@@ -1,0 +1,13 @@
+#!/bin/sh
+# Maven Wrapper script for Unix
+DIRNAME=$(dirname "$0")
+WRAPPER_JAR="$DIRNAME/.mvn/wrapper/maven-wrapper.jar"
+if [ ! -f "$WRAPPER_JAR" ]; then
+    mkdir -p "$DIRNAME/.mvn/wrapper"
+    curl -fsSL "https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.3.2/maven-wrapper-3.3.2.jar" -o "$WRAPPER_JAR"
+fi
+JAVACMD="java"
+if [ -n "$JAVA_HOME" ]; then
+    JAVACMD="$JAVA_HOME/bin/java"
+fi
+exec "$JAVACMD" -jar "$WRAPPER_JAR" "$@"

@@ -1,0 +1,84 @@
+services:
+  dermabliss-mysql:
+    image: mysql:8.0
+    container_name: dermabliss-mysql
+    restart: unless-stopped
+    command: >
+      --default-authentication-plugin=caching_sha2_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-time-zone="+05:30"
+      --max_connections=300
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-RootPassword@2026}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-dermabliss_db}
+      MYSQL_USER: ${SPRING_DATASOURCE_USERNAME:-dermabliss_user}
+      MYSQL_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-DermaBliss@2026}
+    volumes:
+      - mysql_prod_data:/var/lib/mysql
+    networks:
+      - dermabliss-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD:-RootPassword@2026}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  dermabliss-backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dermabliss-backend
+    restart: unless-stopped
+    depends_on:
+      dermabliss-mysql:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:mysql://dermabliss-mysql:3306/dermabliss_db?useSSL=false&serverTimezone=Asia/Kolkata&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: ${SPRING_DATASOURCE_USERNAME:-dermabliss_user}
+      SPRING_DATASOURCE_PASSWORD: ${SPRING_DATASOURCE_PASSWORD:-DermaBliss@2026}
+      DERMABLISS_JWT_SECRET: ${DERMABLISS_JWT_SECRET:-c2VjdXJlLWRlcm1hLWJsaXNzLXN1cGVyLXNlY3JldC1qd3Qta2V5LTIwMjYtbWluMzJjaGFycw==}
+      ADMIN_BOOTSTRAP_PHONE: ${ADMIN_BOOTSTRAP_PHONE:-+917897892177}
+      ADMIN_BOOTSTRAP_PASSWORD: ${ADMIN_BOOTSTRAP_PASSWORD:-ChangeMeInProdDoctor2026!}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost,http://localhost:80,http://localhost:3000,https://dermablissclinic.com}
+    volumes:
+      - medical_documents:/app/storage
+    networks:
+      - dermabliss-net
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2048M
+        reservations:
+          cpus: '0.5'
+          memory: 512M
+
+  dermabliss-web:
+    build:
+      context: ./admin-website
+      dockerfile: Dockerfile
+    container_name: dermabliss-web
+    restart: unless-stopped
+    depends_on:
+      - dermabliss-backend
+    ports:
+      - "80:80"
+    networks:
+      - dermabliss-net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M
+
+volumes:
+  mysql_prod_data:
+  medical_documents:
+
+networks:
+  dermabliss-net:
+    driver: bridge
+

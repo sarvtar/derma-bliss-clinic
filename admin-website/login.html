@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administrator Login — Derma Bliss Clinic</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="auth-container">
+  <div class="auth-card">
+    <div style="margin-bottom: 2rem;">
+      <img src="assets/images/emblem.svg" alt="Derma Bliss Emblem" style="width: 68px; height: 68px; margin: 0 auto 0.85rem; display: block; filter: drop-shadow(0 4px 12px rgba(197, 160, 89, 0.2));">
+      <div class="brand-tagline">SKIN &bull; HAIR &bull; LASER</div>
+      <h1 class="brand-title" style="font-size: 2.2rem; margin: 0.5rem 0 0.2rem;">Derma Bliss Clinic</h1>
+      <p class="doctor-badge">Dr. Ankita Santosh Koli &bull; Reg. No. 73892</p>
+      <p style="font-size: 0.8rem; color: var(--text-light); margin-top: 0.2rem;">Cosmetologist & Trichologist</p>
+    </div>
+
+    <div id="error-alert" style="display: none; background: var(--status-cancelled-bg); color: var(--status-cancelled); padding: 0.85rem; border-radius: var(--radius-sm); font-size: 0.88rem; margin-bottom: 1.5rem; text-align: left;">
+      <i class="fa-solid fa-circle-exclamation" style="margin-right: 0.5rem;"></i>
+      <span id="error-message">Invalid phone number or password.</span>
+    </div>
+
+    <form id="login-form">
+      <div class="form-group" style="text-align: left;">
+        <label class="form-label" for="phone">Doctor Mobile Number</label>
+        <div style="position: relative;">
+          <input type="text" id="phone" class="form-control" placeholder="+91 789 789 2177" required autocomplete="username">
+        </div>
+      </div>
+
+      <div class="form-group" style="text-align: left;">
+        <label class="form-label" for="password">Password</label>
+        <div style="position: relative;">
+          <input type="password" id="password" class="form-control" placeholder="••••••••••••" required autocomplete="current-password">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-gold" id="login-btn" style="width: 100%; justify-content: center; padding: 0.85rem; margin-top: 1rem;">
+        <i class="fa-solid fa-lock"></i>
+        <span>Sign In to Admin Portal</span>
+      </button>
+
+      <button type="button" class="btn-outline" onclick="demoSignIn()" style="width: 100%; justify-content: center; padding: 0.8rem; margin-top: 0.75rem; background: var(--bg-surface);">
+        <i class="fa-solid fa-wand-magic-sparkles" style="color: var(--primary-gold);"></i>
+        <span>Live Interactive Preview (Dr. Ankita Koli)</span>
+      </button>
+    </form>
+
+    <div style="margin-top: 1.8rem; border-top: 1px solid var(--border-delicate); padding-top: 1.2rem; font-size: 0.78rem; color: var(--text-light);">
+      DermaBliss Clinic &bull; Thane East, Maharashtra &bull; +91 789 789 2177
+    </div>
+  </div>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script>
+    const form = document.getElementById('login-form');
+    const errorAlert = document.getElementById('error-alert');
+    const errorMessage = document.getElementById('error-message');
+    const loginBtn = document.getElementById('login-btn');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorAlert.style.display = 'none';
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Authenticating...';
+
+      const phone = document.getElementById('phone').value.trim();
+      const password = document.getElementById('password').value;
+
+      const result = await AuthGuard.login(phone, password);
+      if (!result.success) {
+        errorAlert.style.display = 'block';
+        errorMessage.textContent = result.message || 'Authentication failed. Please verify your credentials.';
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = '<i class="fa-solid fa-lock"></i> <span>Sign In to Admin Portal</span>';
+      }
+    });
+
+    function demoSignIn() {
+      const demoUser = {
+        id: 1,
+        role: 'ROLE_ADMIN',
+        name: 'Dr. Ankita Santosh Koli',
+        phoneNumber: '+91 789 789 2177'
+      };
+      ApiClient.setAuthSession('demo-preview-jwt-token', 'demo-refresh-token-2026', demoUser);
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</body>
+</html>

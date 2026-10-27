@@ -1,0 +1,53 @@
+# Environment & Secrets
+.env
+.env.local
+*.env
+*.pem
+*.key
+*.jks
+*.p12
+
+# Maven / Java Build Artifacts
+backend/target/
+backend/.mvn/wrapper/maven-wrapper.jar
+*.class
+*.jar
+*.war
+*.ear
+
+# Logs
+logs/
+*.log
+
+# IDE & Editor files
+.idea/
+*.iml
+.vscode/
+*.suo
+*.user
+.DS_Store
+Thumbs.db
+
+# Node / Mobile App Dependencies & Builds
+mobile-app/node_modules/
+mobile-app/.expo/
+mobile-app/dist/
+mobile-app/web-build/
+mobile-app/android/.gradle/
+mobile-app/android/app/build/
+mobile-app/ios/Pods/
+mobile-app/ios/build/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Medical Document Storage uploads
+storage/medical-documents/*
+!storage/medical-documents/.gitkeep
+
+# Docker volumes & local MySQL database data
+.mysql_data/
+mysql-data/
+
+# Temporary browser profiles
+screenshots/edge_profile/

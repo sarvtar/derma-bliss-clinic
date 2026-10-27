@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Medical Records — Derma Bliss Clinic</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <header class="clinic-header">
+    <div class="brand-wrapper">
+      <img src="assets/images/emblem.svg" alt="Derma Bliss Emblem" class="brand-logo-img">
+      <div class="brand-info">
+        <a href="dashboard.html" class="brand-name">Derma Bliss Clinic</a>
+        <span class="brand-tagline">DERMA BLISS &bull; SKIN | HAIR | LASER</span>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+      <div style="text-align: right;">
+        <div style="font-weight: 600; font-size: 0.95rem;">Dr. Ankita Santosh Koli</div>
+        <div class="doctor-badge">Cosmetologist &amp; Trichologist &bull; Reg. 73892</div>
+      </div>
+      <button class="btn-outline" onclick="AuthGuard.logout()" style="padding: 0.5rem 1rem; font-size: 0.82rem;">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout
+      </button>
+    </div>
+  </header>
+
+  <div class="dashboard-layout">
+    <aside class="sidebar">
+      <a href="dashboard.html" class="nav-link"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+      <a href="appointments.html" class="nav-link"><i class="fa-solid fa-calendar-check"></i> Appointments</a>
+      <a href="patients.html" class="nav-link"><i class="fa-solid fa-user-injured"></i> Patients</a>
+      <a href="medical-records.html" class="nav-link active"><i class="fa-solid fa-notes-medical"></i> Medical Records</a>
+      <a href="prescriptions.html" class="nav-link"><i class="fa-solid fa-file-prescription"></i> Prescriptions</a>
+      <a href="billing.html" class="nav-link"><i class="fa-solid fa-file-invoice-dollar"></i> Billing &amp; Invoices</a>
+      <a href="reports.html" class="nav-link"><i class="fa-solid fa-chart-pie"></i> Reports &amp; Analytics</a>
+      <a href="settings.html" class="nav-link"><i class="fa-solid fa-sliders"></i> Clinic Settings</a>
+    </aside>
+
+    <main class="main-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.8rem;">
+        <div>
+          <h1 style="font-size: 1.8rem;">Consultation &amp; Clinical Records</h1>
+          <p style="color: var(--text-muted); font-size: 0.92rem;">Confidential patient examinations, diagnoses, and treatment histories</p>
+        </div>
+        <button class="btn-gold" onclick="openNewRecordModal()">
+          <i class="fa-solid fa-plus"></i> New Clinical Note
+        </button>
+      </div>
+
+      <!-- Live Notification Banner -->
+      <div id="action-banner" style="display: none; padding: 0.85rem 1.2rem; border-radius: var(--radius-sm); margin-bottom: 1.5rem; font-size: 0.9rem;"></div>
+
+      <div class="card-surface">
+        <div class="table-responsive">
+          <table class="clinic-table">
+            <thead>
+              <tr>
+                <th>Record #</th>
+                <th>Date</th>
+                <th>Patient Name</th>
+                <th>Diagnosis</th>
+                <th>Treatment Plan</th>
+                <th>Patient Portal Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="records-tbody">
+              <tr>
+                <td colspan="7" style="text-align: center; color: var(--text-light); padding: 2rem;">
+                  No clinical consultation records logged yet.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- New Record Modal -->
+  <div id="new-record-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; align-items: center; justify-content: center; overflow-y: auto;">
+    <div class="card-surface" style="width: 100%; max-width: 620px; padding: 2rem; margin: 2rem 0; position: relative;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="font-size: 1.3rem;">Log Clinical Consultation Note</h2>
+        <button onclick="closeModal()" style="background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--text-muted);">&times;</button>
+      </div>
+
+      <form id="new-record-form" onsubmit="handleCreateRecord(event)">
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label class="form-label">Patient</label>
+            <select id="rec-patient-id" class="form-control" required>
+              <option value="">Select patient...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Consultation Date</label>
+            <input type="date" id="rec-date" class="form-control" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Presented Symptoms</label>
+          <textarea id="rec-symptoms" class="form-control" rows="2" placeholder="e.g. Mild redness on cheeks, recurring comedones for 3 months" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Clinical Observations &amp; Skin/Hair Examination</label>
+          <textarea id="rec-observations" class="form-control" rows="2" placeholder="e.g. Fitzpatrick Skin Type III, inflammatory papules, follicular plugging"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Definitive Diagnosis</label>
+          <input type="text" id="rec-diagnosis" class="form-control" placeholder="e.g. Acne Vulgaris (Grade II), Seborrheic Dermatitis" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Treatment Plan</label>
+          <textarea id="rec-treatment" class="form-control" rows="2" placeholder="e.g. Topical Salicylic acid peel series, topical retinoic acid nightly" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Follow-up Recommendation</label>
+          <input type="text" id="rec-followup" class="form-control" placeholder="e.g. Review after 4 weeks of topical regimen">
+        </div>
+
+        <div class="form-group" style="display: flex; align-items: center; gap: 0.6rem; margin-top: 1rem;">
+          <input type="checkbox" id="rec-release" style="accent-color: var(--primary-gold-dark); width: 1.1rem; height: 1.1rem;">
+          <label for="rec-release" style="font-size: 0.9rem; font-weight: 500; cursor: pointer;">
+            Release consultation summary to patient mobile app portal
+          </label>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; gap: 0.8rem; margin-top: 1.5rem;">
+          <button type="button" class="btn-outline" onclick="closeModal()">Cancel</button>
+          <button type="submit" class="btn-gold" id="btn-submit-record">
+            <i class="fa-solid fa-floppy-disk"></i> Save Clinical Note
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script>
+    AuthGuard.checkAdminAuth();
+    let recordsList = [];
+
+    function showBanner(message, isError = false) {
+      const banner = document.getElementById('action-banner');
+      banner.style.display = 'block';
+      banner.style.background = isError ? 'var(--status-cancelled-bg)' : 'var(--status-confirmed-bg)';
+      banner.style.color = isError ? 'var(--status-cancelled)' : 'var(--status-confirmed)';
+      banner.textContent = message;
+      setTimeout(() => { banner.style.display = 'none'; }, 5000);
+    }
+
+    async function loadRecords() {
+      // Load sample or patient records
+      renderRecords(recordsList);
+    }
+
+    function renderRecords(list) {
+      const tbody = document.getElementById('records-tbody');
+      if (!list || list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-light); padding: 2rem;">No clinical consultation records logged yet. Click "New Clinical Note" above to add one.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(r => `<tr>
+        <td><strong style="color: var(--primary-gold-dark);">${r.recordNumber}</strong></td>
+        <td>${r.consultationDate}</td>
+        <td><strong>${r.patientName}</strong></td>
+        <td>${r.diagnosis}</td>
+        <td>${r.treatmentPlan ? r.treatmentPlan.substring(0, 40) + '...' : '-'}</td>
+        <td>${r.releasedToPatient ? '<span class="badge-status badge-confirmed">Visible to Patient</span>' : '<span class="badge-status badge-pending">Doctor Only</span>'}</td>
+        <td>
+          ${!r.releasedToPatient ? `
+            <button class="btn-outline" style="padding: 0.35rem 0.6rem; font-size: 0.8rem;" onclick="releaseRecord(${r.id})">
+              <i class="fa-solid fa-share-from-square"></i> Release
+            </button>
+          ` : '<span style="color: var(--status-confirmed); font-size: 0.82rem;"><i class="fa-solid fa-check-double"></i> Released</span>'}
+        </td>
+      </tr>`).join('');
+    }
+
+    async function openNewRecordModal() {
+      document.getElementById('new-record-modal').style.display = 'flex';
+      document.getElementById('rec-date').valueAsDate = new Date();
+
+      const patients = await ApiClient.request('/admin/patients');
+      const pSelect = document.getElementById('rec-patient-id');
+      pSelect.innerHTML = '<option value="">Select patient...</option>' +
+        (patients || []).map(p => `<option value="${p.id}">${p.fullName} (${p.patientNumber})</option>`).join('');
+
+      const params = new URLSearchParams(window.location.search);
+      const prePatientId = params.get('patientId');
+      if (prePatientId) pSelect.value = prePatientId;
+    }
+
+    function closeModal() {
+      document.getElementById('new-record-modal').style.display = 'none';
+    }
+
+    async function handleCreateRecord(e) {
+      e.preventDefault();
+      const btn = document.getElementById('btn-submit-record');
+      btn.disabled = true;
+
+      const patientId = document.getElementById('rec-patient-id').value;
+      const consultationDate = document.getElementById('rec-date').value;
+      const symptoms = document.getElementById('rec-symptoms').value;
+      const clinicalObservations = document.getElementById('rec-observations').value;
+      const diagnosis = document.getElementById('rec-diagnosis').value;
+      const treatmentPlan = document.getElementById('rec-treatment').value;
+      const followUpRecommendation = document.getElementById('rec-followup').value;
+      const releaseToPatient = document.getElementById('rec-release').checked;
+
+      try {
+        const created = await ApiClient.request('/admin/medical-records', {
+          method: 'POST',
+          body: JSON.stringify({
+            patientId: Number(patientId),
+            consultationDate,
+            symptoms,
+            clinicalObservations,
+            diagnosis,
+            treatmentPlan,
+            followUpRecommendation,
+            releaseToPatient
+          })
+        });
+
+        closeModal();
+        showBanner(`Medical Record #${created.recordNumber} saved successfully!`);
+        recordsList.unshift(created);
+        renderRecords(recordsList);
+      } catch (err) {
+        alert(err.message || 'Failed to save record');
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function releaseRecord(id) {
+      try {
+        await ApiClient.request(`/admin/medical-records/${id}/release`, { method: 'PATCH' });
+        showBanner('Record released to patient portal.');
+        const rec = recordsList.find(r => r.id === id);
+        if (rec) rec.releasedToPatient = true;
+        renderRecords(recordsList);
+      } catch (err) {
+        showBanner(err.message, true);
+      }
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('patientId')) {
+      openNewRecordModal();
+    } else {
+      loadRecords();
+    }
+  </script>
+</body>
+</html>

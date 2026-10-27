@@ -1,0 +1,29 @@
+services:
+  dermabliss-mysql:
+    image: mysql:8.0
+    container_name: dermabliss-mysql
+    restart: unless-stopped
+    command: >
+      --default-authentication-plugin=caching_sha2_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-time-zone="+05:30"
+    environment:
+      MYSQL_ROOT_PASSWORD: RootPassword@2026
+      MYSQL_DATABASE: dermabliss_db
+      MYSQL_USER: dermabliss_user
+      MYSQL_PASSWORD: DermaBliss@2026
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-pRootPassword@2026"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+volumes:
+  mysql_data:
+    driver: local

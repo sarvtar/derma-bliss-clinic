@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Mobile Application — Derma Bliss Clinic</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      background: #FDFBF9;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 30px;
+      color: #2D2424;
+    }
+    .preview-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .preview-title {
+      font-size: 26px;
+      font-weight: 700;
+      color: #6A1B4D;
+      margin-bottom: 6px;
+    }
+    .preview-subtitle {
+      font-size: 14px;
+      color: #7A6868;
+    }
+    .phones-container {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .phone-frame {
+      width: 320px;
+      height: 640px;
+      background: #FFFFFF;
+      border-radius: 40px;
+      box-shadow: 0 20px 45px rgba(106, 27, 77, 0.12), 0 0 0 10px #2D2424, 0 0 0 12px #C5A059;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .phone-notch {
+      width: 140px;
+      height: 22px;
+      background: #2D2424;
+      margin: 0 auto;
+      border-bottom-left-radius: 14px;
+      border-bottom-right-radius: 14px;
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+    }
+    .phone-status-bar {
+      height: 38px;
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 20px 0;
+      font-size: 11px;
+      font-weight: 600;
+      color: #6A1B4D;
+    }
+    .phone-screen {
+      flex: 1;
+      overflow-y: auto;
+      padding: 14px;
+      background: #FDFBF9;
+    }
+    .m-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .m-clinic-card {
+      background: linear-gradient(135deg, #FFF9F3 0%, #FBF0E4 100%);
+      border: 1px solid #C5A059;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 14px rgba(197, 160, 89, 0.15);
+    }
+    .m-card-badge {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #C5A059;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .m-doctor-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: #6A1B4D;
+      margin-bottom: 2px;
+    }
+    .m-doctor-spec {
+      font-size: 11px;
+      color: #7A6868;
+      margin-bottom: 8px;
+    }
+    .m-btn {
+      display: block;
+      width: 100%;
+      background: #6A1B4D;
+      color: #FFF;
+      text-align: center;
+      padding: 10px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 12px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(106, 27, 77, 0.25);
+    }
+    .m-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .m-item {
+      background: #FFF;
+      border: 1px solid #F0E6DE;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+    }
+    .m-item i {
+      font-size: 20px;
+      color: #C5A059;
+      margin-bottom: 6px;
+    }
+    .m-item-title {
+      font-size: 11px;
+      font-weight: 600;
+      color: #2D2424;
+    }
+    .m-bottom-nav {
+      height: 52px;
+      background: #FFF;
+      border-top: 1px solid #F0E6DE;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 10px;
+    }
+    .nav-tab {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 9px;
+      color: #7A6868;
+    }
+    .nav-tab.active {
+      color: #6A1B4D;
+      font-weight: 700;
+    }
+    .nav-tab i {
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-header">
+    <div class="preview-title">Derma Bliss Clinic &bull; Patient Mobile Application</div>
+    <div class="preview-subtitle">React Native &bull; Expo &bull; Dr. Ankita Santosh Koli (Reg. 73892) &bull; Cross-Platform iOS & Android</div>
+  </div>
+
+  <div class="phones-container">
+    <!-- Phone 1: Home Screen -->
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status-bar">
+        <span>09:41</span>
+        <span><i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-full"></i></span>
+      </div>
+      <div class="phone-screen">
+        <div class="m-header">
+          <div>
+            <div style="font-size: 11px; color: #7A6868;">Welcome Back</div>
+            <div style="font-size: 16px; font-weight: 700; color: #2D2424;">Pooja Sharma</div>
+          </div>
+          <div style="width: 32px; height: 32px; border-radius: 16px; background: #6A1B4D; color: #FFF; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">PS</div>
+        </div>
+
+        <div class="m-clinic-card">
+          <div class="m-card-badge">DERMA BLISS &bull; SKIN | HAIR | LASER</div>
+          <div class="m-doctor-name">Dr. Ankita Santosh Koli</div>
+          <div class="m-doctor-spec">BHMS, PGDMS, CCH, CGO, CSD &bull; Reg. 73892</div>
+          <div style="font-size: 10px; color: #7A6868; margin-bottom: 10px;">
+            <i class="fa-solid fa-location-dot" style="color: #C5A059;"></i> Thane East, Maharashtra
+          </div>
+          <button class="m-btn">Book New Consultation</button>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: #2D2424; margin-bottom: 8px;">Upcoming Appointment</div>
+        <div style="background: #FFF; border-left: 4px solid #C5A059; border-radius: 8px; padding: 10px; margin-bottom: 16px; box-shadow: 0 2px 6px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #6A1B4D;">
+            <span>HydraFacial MD</span>
+            <span style="background: #E8F5E9; color: #2E7D32; padding: 2px 6px; border-radius: 4px; font-size: 9px;">CONFIRMED</span>
+          </div>
+          <div style="font-size: 10px; color: #7A6868; margin-top: 4px;">Today at 10:00 AM &bull; Token #01</div>
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: #2D2424; margin-bottom: 8px;">Quick Services</div>
+        <div class="m-grid">
+          <div class="m-item">
+            <i class="fa-solid fa-calendar-check"></i>
+            <div class="m-item-title">Book Slot</div>
+          </div>
+          <div class="m-item">
+            <i class="fa-solid fa-file-prescription"></i>
+            <div class="m-item-title">Prescriptions</div>
+          </div>
+          <div class="m-item">
+            <i class="fa-solid fa-notes-medical"></i>
+            <div class="m-item-title">Medical History</div>
+          </div>
+          <div class="m-item">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+            <div class="m-item-title">Bills &amp; Invoices</div>
+          </div>
+        </div>
+      </div>
+      <div class="m-bottom-nav">
+        <div class="nav-tab active"><i class="fa-solid fa-house"></i>Home</div>
+        <div class="nav-tab"><i class="fa-solid fa-calendar-days"></i>Book</div>
+        <div class="nav-tab"><i class="fa-solid fa-clock-rotate-left"></i>Visits</div>
+        <div class="nav-tab"><i class="fa-solid fa-user"></i>Profile</div>
+      </div>
+    </div>
+
+    <!-- Phone 2: Digital Prescription Screen -->
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status-bar">
+        <span>09:41</span>
+        <span><i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-full"></i></span>
+      </div>
+      <div class="phone-screen">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+          <i class="fa-solid fa-arrow-left" style="color: #6A1B4D;"></i>
+          <span style="font-size: 14px; font-weight: 700; color: #6A1B4D;">Digital Prescription</span>
+        </div>
+
+        <div style="background: #FFF; border: 1px solid #C5A059; border-radius: 12px; padding: 14px; margin-bottom: 12px;">
+          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #F0E6DE; padding-bottom: 8px; margin-bottom: 8px;">
+            <div>
+              <div style="font-size: 11px; font-weight: 700; color: #6A1B4D;">RX-202610-001</div>
+              <div style="font-size: 9px; color: #7A6868;">Date: 25 Oct 2026</div>
+            </div>
+            <div style="font-size: 10px; font-weight: 700; color: #C5A059;">VERIFIED SIGNATURE</div>
+          </div>
+
+          <div style="font-size: 10px; font-weight: 700; color: #2D2424; margin-bottom: 4px;">Diagnosis:</div>
+          <div style="font-size: 10px; color: #6A1B4D; background: #FFF9F3; padding: 6px; border-radius: 6px; margin-bottom: 8px;">
+            Acne Vulgaris Grade II (Papulopustular)
+          </div>
+
+          <div style="font-size: 10px; font-weight: 700; color: #2D2424; margin-bottom: 4px;">Medications:</div>
+          
+          <div style="border-bottom: 1px dashed #F0E6DE; padding: 6px 0;">
+            <div style="font-size: 10px; font-weight: 700; color: #2D2424;">1. Clindamycin + Nicotinamide Gel</div>
+            <div style="font-size: 9px; color: #7A6868;">Twice Daily &bull; 30 Days (Morning &amp; Night)</div>
+          </div>
+
+          <div style="border-bottom: 1px dashed #F0E6DE; padding: 6px 0;">
+            <div style="font-size: 10px; font-weight: 700; color: #2D2424;">2. Adapalene 0.1% Gel</div>
+            <div style="font-size: 9px; color: #7A6868;">Once Daily at bedtime &bull; 45 Days</div>
+          </div>
+
+          <div style="padding: 6px 0;">
+            <div style="font-size: 10px; font-weight: 700; color: #2D2424;">3. Doxycycline 100mg</div>
+            <div style="font-size: 9px; color: #7A6868;">Once Daily after food &bull; 14 Days</div>
+          </div>
+
+          <div style="margin-top: 10px; padding-top: 8px; border-top: 1px solid #F0E6DE; font-size: 9px; color: #7A6868; text-align: right;">
+            Dr. Ankita Santosh Koli (73892)
+          </div>
+        </div>
+
+        <button class="m-btn" style="background: #C5A059;">
+          <i class="fa-solid fa-file-pdf"></i> Download Official PDF
+        </button>
+      </div>
+      <div class="m-bottom-nav">
+        <div class="nav-tab"><i class="fa-solid fa-house"></i>Home</div>
+        <div class="nav-tab"><i class="fa-solid fa-calendar-days"></i>Book</div>
+        <div class="nav-tab active"><i class="fa-solid fa-clock-rotate-left"></i>Visits</div>
+        <div class="nav-tab"><i class="fa-solid fa-user"></i>Profile</div>
+      </div>
+    </div>
+
+    <!-- Phone 3: Booking & Queue Token -->
+    <div class="phone-frame">
+      <div class="phone-notch"></div>
+      <div class="phone-status-bar">
+        <span>09:41</span>
+        <span><i class="fa-solid fa-wifi"></i> <i class="fa-solid fa-battery-full"></i></span>
+      </div>
+      <div class="phone-screen">
+        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 14px;">
+          <i class="fa-solid fa-arrow-left" style="color: #6A1B4D;"></i>
+          <span style="font-size: 14px; font-weight: 700; color: #6A1B4D;">Live Token &amp; Check-In</span>
+        </div>
+
+        <div style="background: #6A1B4D; color: #FFF; border-radius: 16px; padding: 20px; text-align: center; margin-bottom: 14px; box-shadow: 0 8px 20px rgba(106, 27, 77, 0.3);">
+          <div style="font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.85;">Today's Queue Token</div>
+          <div style="font-size: 48px; font-weight: 800; color: #C5A059; margin: 4px 0;">#01</div>
+          <div style="font-size: 12px; font-weight: 600;">STATUS: SERVING NOW</div>
+          <div style="font-size: 10px; opacity: 0.8; margin-top: 4px;">Dr. Ankita Koli Consulting Room 1</div>
+        </div>
+
+        <div style="background: #FFF; border-radius: 12px; border: 1px solid #F0E6DE; padding: 12px; margin-bottom: 14px;">
+          <div style="font-size: 11px; font-weight: 700; color: #2D2424; margin-bottom: 6px;">Clinic Timings</div>
+          <div style="font-size: 10px; color: #7A6868; line-height: 1.5;">
+            &bull; Morning: 10:00 AM – 01:00 PM<br>
+            &bull; Evening: 05:00 PM – 09:00 PM<br>
+            &bull; Days: Monday to Saturday (Sunday Closed)
+          </div>
+        </div>
+
+        <div style="background: #FFF; border-radius: 12px; border: 1px solid #F0E6DE; padding: 12px;">
+          <div style="font-size: 11px; font-weight: 700; color: #2D2424; margin-bottom: 4px;">Clinic Helpline</div>
+          <div style="font-size: 12px; font-weight: 700; color: #6A1B4D;">+91 789 789 2177</div>
+          <div style="font-size: 9px; color: #7A6868; margin-top: 2px;">Thane East, Maharashtra</div>
+        </div>
+      </div>
+      <div class="m-bottom-nav">
+        <div class="nav-tab"><i class="fa-solid fa-house"></i>Home</div>
+        <div class="nav-tab"><i class="fa-solid fa-calendar-days"></i>Book</div>
+        <div class="nav-tab"><i class="fa-solid fa-clock-rotate-left"></i>Visits</div>
+        <div class="nav-tab active"><i class="fa-solid fa-user"></i>Profile</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

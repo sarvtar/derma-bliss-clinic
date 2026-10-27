@@ -1,0 +1,9 @@
+platform :ios, '13.4'
+prepare_react_native_project!
+
+target 'DermaBlissPatient' do
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :hermes_enabled => true
+  )
+end
