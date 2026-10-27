@@ -9,9 +9,9 @@ services:
   # ----------------------------------------------------------------------------
   - type: pserv
     name: dermabliss-mysql
-    env: image
+    runtime: image
     image:
-      url: mysql:8.0
+      url: docker.io/library/mysql:8.0
     plan: starter
     disk:
       name: mysql-data
@@ -32,7 +32,7 @@ services:
   # ----------------------------------------------------------------------------
   - type: web
     name: dermabliss-backend
-    env: docker
+    runtime: docker
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     plan: standard
@@ -64,10 +64,11 @@ services:
         value: "https://dermabliss-admin.onrender.com,http://localhost:3000,http://localhost:8080"
 
   # ----------------------------------------------------------------------------
-  # 3. Admin Website (Free Global CDN Static Site)
+  # 3. Admin Website (Static Site on Global CDN)
   # ----------------------------------------------------------------------------
-  - type: static
+  - type: web
     name: dermabliss-admin
+    runtime: static
     buildCommand: ""
     staticPublishPath: ./admin-website
     routes:
@@ -77,4 +78,3 @@ services:
       - type: rewrite
         source: /*
         destination: /login.html
-
