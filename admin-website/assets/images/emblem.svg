@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80" width="80" height="80">
+  <defs>
+    <linearGradient id="goldGradEmblem" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#DFBA73" />
+      <stop offset="50%" stop-color="#C5A059" />
+      <stop offset="100%" stop-color="#9A7B38" />
+    </linearGradient>
+  </defs>
+
+  <circle cx="40" cy="40" r="38" fill="#FFFFFF" stroke="url(#goldGradEmblem)" stroke-width="2"/>
+  <circle cx="40" cy="40" r="34" fill="#FDFBF7" stroke="url(#goldGradEmblem)" stroke-width="0.8" stroke-dasharray="3 2" opacity="0.7"/>
+
+  <!-- Stylized Lotus / Radiant Petals -->
+  <path d="M40 18 C44 28 54 34 54 43 C54 52 40 58 40 58 C40 58 26 52 26 43 C26 34 36 28 40 18 Z" fill="url(#goldGradEmblem)" opacity="0.9"/>
+  <path d="M40 26 C43 32 49 37 49 43 C49 49 40 54 40 54 C40 54 31 49 31 43 C31 37 37 32 40 26 Z" fill="#FDFBF7" opacity="0.95"/>
+  <polygon points="40,34 43,39 40,44 37,39" fill="url(#goldGradEmblem)" />
+  <path d="M30 48 Q40 54 50 48" fill="none" stroke="url(#goldGradEmblem)" stroke-width="1.2" stroke-linecap="round"/>
+</svg>

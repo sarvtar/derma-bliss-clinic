@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: derma-bliss-clinic-backend-test
+  
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: false
+    show-sql: false
+
+  flyway:
+    enabled: false
+
+server:
+  port: 0
+
+clinic:
+  name: "Derma Bliss Clinic"
+  doctor:
+    name: "Dr. Ankita Santosh Koli"
+    qualifications: "BHMS, PGDMS, CCH, CGO, CSD"
+    specialization: "Cosmetologist & Trichologist"
+    registrationNumber: "73892"
+  contact:
+    phone: "+91 789 789 2177"
+    address: "DermaBliss Clinic, Opp. Sainagri, Chendani Koliwada, Thane East, Maharashtra – 400603, India."
+    instagram: "@derma_bliss_clinic"
+    tagline: "DERMA BLISS — SKIN | HAIR | LASER"
+  timezone: "Asia/Kolkata"
+  storage:
+    path: ./target/test-storage/medical-documents
+    max-file-size-bytes: 10485760
+
+security:
+  jwt:
+    secret: dGVzdC1kZXJtYS1ibGlzcy1zdXBlci1zZWNyZXQtand0LWtleS0yMDI2LW1pbjMyY2hhcnM=
+    access-expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+  cors:
+    allowed-origins: "*"
+  bootstrap:
+    admin-phone: "+917897892177"
+    admin-password: "ChangeMeInProdDoctor2026!"

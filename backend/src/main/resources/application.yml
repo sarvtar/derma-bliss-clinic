@@ -1,0 +1,86 @@
+spring:
+  application:
+    name: derma-bliss-clinic-backend
+  profiles:
+    active: dev
+  
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/dermabliss_db?useSSL=false&serverTimezone=Asia/Kolkata&allowPublicKeyRetrieval=true}
+    username: ${SPRING_DATASOURCE_USERNAME:dermabliss_user}
+    password: ${SPRING_DATASOURCE_PASSWORD:DermaBliss@2026}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 15
+      minimum-idle: 5
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      connection-timeout: 20000
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+        format_sql: true
+        jdbc:
+          time_zone: Asia/Kolkata
+    show-sql: false
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+server:
+  port: ${PORT:${SERVER_PORT:8080}}
+  servlet:
+    context-path: ${SERVER_SERVLET_CONTEXT_PATH:/}
+  error:
+    include-message: never
+    include-stacktrace: never
+    include-binding-errors: never
+
+# Clinic Domain Configuration
+clinic:
+  name: "Derma Bliss Clinic"
+  doctor:
+    name: "Dr. Ankita Santosh Koli"
+    qualifications: "BHMS, PGDMS, CCH, CGO, CSD"
+    specialization: "Cosmetologist & Trichologist"
+    registrationNumber: "73892"
+  contact:
+    phone: "+91 789 789 2177"
+    address: "DermaBliss Clinic, Opp. Sainagri, Chendani Koliwada, Thane East, Maharashtra – 400603, India."
+    instagram: "@derma_bliss_clinic"
+    tagline: "DERMA BLISS — SKIN | HAIR | LASER"
+  timezone: "Asia/Kolkata"
+  storage:
+    path: ${CLINIC_STORAGE_PATH:./storage/medical-documents}
+    max-file-size-bytes: 10485760
+
+# Security and JWT
+security:
+  jwt:
+    secret: ${DERMABLISS_JWT_SECRET:c2VjdXJlLWRlcm1hLWJsaXNzLXN1cGVyLXNlY3JldC1qd3Qta2V5LTIwMjYtbWluMzJjaGFycw==}
+    access-expiration-ms: ${DERMABLISS_JWT_ACCESS_EXPIRATION_MS:900000} # 15 minutes
+    refresh-expiration-ms: ${DERMABLISS_JWT_REFRESH_EXPIRATION_MS:604800000} # 7 days
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:3000,http://127.0.0.1:3000,http://localhost:8080,http://127.0.0.1:5500}
+  bootstrap:
+    admin-phone: ${ADMIN_BOOTSTRAP_PHONE:+917897892177}
+    admin-password: ${ADMIN_BOOTSTRAP_PASSWORD:ChangeMeInProdDoctor2026!}
+
+# OpenAPI Swagger UI
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method

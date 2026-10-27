@@ -1,0 +1,370 @@
+/* ==============================================================================
+   Derma Bliss Clinic — Official Brand Stylesheet
+   Dr. Ankita Santosh Koli (BHMS, PGDMS, CCH, CGO, CSD)
+   Palette: Warm Blush, Muted Gold, Deep Charcoal, Cream Surfaces
+   ============================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Brand Color Palette */
+  --bg-main: #FDFBF7;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #F6F1EA;
+  --bg-accent: #FAF5EE;
+  
+  --primary-gold: #C5A059;
+  --primary-gold-dark: #A6833D;
+  --primary-gold-light: #DFCA9B;
+  --gold-glow: rgba(197, 160, 89, 0.15);
+  
+  --text-charcoal: #2C2523;
+  --text-muted: #6B625E;
+  --text-light: #8E837D;
+  
+  --border-delicate: #EAE3D9;
+  --border-focus: #C5A059;
+  
+  --status-confirmed: #2D6A4F;
+  --status-confirmed-bg: #E8F5E9;
+  --status-pending: #B7791F;
+  --status-pending-bg: #FEF3C7;
+  --status-cancelled: #9B2226;
+  --status-cancelled-bg: #FDE8E8;
+  --status-completed: #1D3557;
+  --status-completed-bg: #E0F2FE;
+
+  --shadow-sm: 0 2px 6px rgba(44, 37, 35, 0.04);
+  --shadow-md: 0 8px 24px rgba(44, 37, 35, 0.06);
+  --shadow-lg: 0 16px 40px rgba(44, 37, 35, 0.08);
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-main);
+  color: var(--text-charcoal);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Typography */
+h1, h2, h3, .brand-title {
+  font-family: var(--font-serif);
+  color: var(--text-charcoal);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.brand-tagline {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--primary-gold-dark);
+  font-weight: 600;
+}
+
+/* Header & Navigation Bar */
+.clinic-header {
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-delicate);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-wrapper .brand-logo-img {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 6px rgba(197, 160, 89, 0.25));
+}
+
+.brand-wrapper .brand-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-wrapper .brand-name {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--text-charcoal);
+  text-decoration: none;
+}
+
+.doctor-badge {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* Layout Container */
+.dashboard-layout {
+  display: flex;
+  min-height: calc(100vh - 75px);
+}
+
+.sidebar {
+  width: 260px;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-delicate);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 1rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover, .nav-link.active {
+  background: var(--bg-accent);
+  color: var(--primary-gold-dark);
+  font-weight: 600;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2.2rem 2.8rem;
+  overflow-y: auto;
+}
+
+/* Cards & Surfaces */
+.card-surface {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-delicate);
+  border-radius: var(--radius-md);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-surface:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* Metric Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.4rem;
+  margin-bottom: 2.2rem;
+}
+
+.stat-card {
+  padding: 1.4rem;
+}
+
+.stat-card .stat-label {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.stat-card .stat-value {
+  font-size: 2rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  color: var(--text-charcoal);
+}
+
+.stat-card .stat-subtitle {
+  font-size: 0.8rem;
+  color: var(--primary-gold-dark);
+  margin-top: 0.25rem;
+}
+
+/* Elegant Buttons */
+.btn-gold {
+  background: var(--primary-gold);
+  color: #FFFFFF;
+  border: 1px solid var(--primary-gold);
+  padding: 0.65rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+}
+
+.btn-gold:hover {
+  background: var(--primary-gold-dark);
+  border-color: var(--primary-gold-dark);
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px var(--gold-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-charcoal);
+  border: 1px solid var(--border-delicate);
+  padding: 0.65rem 1.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  border-color: var(--primary-gold);
+  color: var(--primary-gold-dark);
+  background: var(--bg-accent);
+}
+
+/* Clean Data Tables */
+.table-responsive {
+  overflow-x: auto;
+}
+
+.clinic-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.92rem;
+}
+
+.clinic-table th {
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.95rem 1.2rem;
+  border-bottom: 1px solid var(--border-delicate);
+  letter-spacing: 0.02em;
+}
+
+.clinic-table td {
+  padding: 1rem 1.2rem;
+  border-bottom: 1px solid var(--border-delicate);
+  color: var(--text-charcoal);
+  background: var(--bg-surface);
+}
+
+.clinic-table tr:hover td {
+  background: var(--bg-accent);
+}
+
+/* Status Badges */
+.badge-status {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.badge-confirmed {
+  background: var(--status-confirmed-bg);
+  color: var(--status-confirmed);
+}
+
+.badge-pending {
+  background: var(--status-pending-bg);
+  color: var(--status-pending);
+}
+
+.badge-completed {
+  background: var(--status-completed-bg);
+  color: var(--status-completed);
+}
+
+.badge-cancelled {
+  background: var(--status-cancelled-bg);
+  color: var(--status-cancelled);
+}
+
+/* Form Controls */
+.form-group {
+  margin-bottom: 1.3rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.form-control {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 0.92rem;
+  font-family: var(--font-sans);
+  border: 1px solid var(--border-delicate);
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface);
+  color: var(--text-charcoal);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary-gold);
+  box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
+/* Auth Card for Login Screen */
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1.5rem;
+  background: radial-gradient(circle at top, #FFFDF9 0%, #F5EFE6 100%);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-delicate);
+  border-radius: var(--radius-lg);
+  padding: 2.8rem 2.4rem;
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+}
